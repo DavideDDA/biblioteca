@@ -52,7 +52,7 @@ public class BibliotecaController {
     }
 
     @GetMapping("/lista")
-    public Page<Libro> getAllLibri(@RequestParam(value = "size", defaultValue = "5") int size,@RequestParam(value = "page", defaultValue = "1") int page){
+    public Page<Libro> getAllLibri(@RequestParam(value = "size", defaultValue = "5") int size,@RequestParam(value = "page", defaultValue = "0") int page){
         Pageable pagina = PageRequest.of(page,size);
         return service.listLibri(pagina);
     }

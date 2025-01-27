@@ -37,13 +37,12 @@ public class BibliotecaService {
         return libri.findAll(pageable);
     }
 
-    public Libro stampaLibro(Libro libro) {
+    public void stampaLibro(Libro libro) {
         System.out.println("Id: " + libro.getId());
         System.out.println("Titolo: " + libro.getTitolo());
         System.out.println("Autore: " + libro.getAutore());
         System.out.println("Copie disponibili: " + libro.getCopieDisponibili());
         System.out.println("Genere: " + libro.getGenere());
-        return libro;
     }
 
     public void aggiornaLibro(Libro libro) throws Exception {

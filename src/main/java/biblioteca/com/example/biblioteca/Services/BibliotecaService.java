@@ -77,17 +77,19 @@ public class BibliotecaService {
     }
 
     public Optional<List<Libro>> searchByGenere(String genere) throws Exception {
-        Optional<List<Libro>> genereTrovat = Optional
-                .of(libri.findAll().stream().filter(libro -> libro.getGenere().equals(genere))
-                        .collect(Collectors.toList()));
-        if (genereTrovat.isEmpty()) {
+        List<Libro> genereTrovat =
+                libri.findAll().stream().filter(libro -> libro.getGenere().equals(genere))
+                        .collect(Collectors.toList());
+        Optional<List<Libro>> trovato = genereTrovat.isEmpty() ? Optional.empty() : Optional.of(genereTrovat);
+
+        if (trovato.isEmpty()) {
             System.out.println("Niente trovato");
             throw new Exception("Libro non trovato per genere");
         } else {
             System.out.println("Trovato");
-            genereTrovat.get().forEach(l -> stampaLibro(l));
+            trovato.get().forEach(this::stampaLibro);
         }
-        return genereTrovat;
+        return trovato;
     }
 
     public Optional<Libro> searchById(int id) throws Exception {
@@ -106,14 +108,14 @@ public class BibliotecaService {
         List<Libro> trov = libri.findAll().stream()
                 .filter(lib -> lib.getGenere().equals(genere) && lib.getAutore().equals(autore))
                 .collect(Collectors.toList());
-        Optional<List<Libro>> trovOp = trov.size() == 0 ? Optional.empty()
+        Optional<List<Libro>> trovOp = trov.isEmpty() ? Optional.empty()
                 : Optional.of(trov);
         if (trovOp.isEmpty()) {
             System.out.println("Nessun libro trovato");
             throw new Exception("Libro per genere e autore non trovato!");
         } else {
             System.out.println("trovato:");
-            trovOp.get().forEach(lib -> stampaLibro(lib));
+            trovOp.get().forEach(this::stampaLibro);
         }
         return trovOp;
     }

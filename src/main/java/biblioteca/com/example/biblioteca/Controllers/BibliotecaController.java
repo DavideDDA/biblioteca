@@ -56,6 +56,4 @@ public class BibliotecaController {
         Pageable pagina = PageRequest.of(page,size);
         return service.listLibri(pagina);
     }
-
-
 }
